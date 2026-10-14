@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#211f1b">
+  <meta name="description" content="Otalammen Autohuolto tarjoaa auton huolto- ja korjauspalveluita Otalammen ja Vihdin alueella. Tarkista yleisimpien huoltojen hinta-arvio helposti verkossa.">
+  <title>Otalammen Autohuolto | Autohuolto ja korjaus Otalammella</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Otalammen Autohuolto | Autohuolto ja korjaus Otalammella">
+  <meta property="og:description" content="Otalammen Autohuolto tarjoaa auton huolto- ja korjauspalveluita Otalammen ja Vihdin alueella. Tarkista yleisimpien huoltojen hinta-arvio helposti verkossa.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fi_FI">
+  <link rel="icon" type="image/svg+xml" href="./src/assets/otalampi-wordmark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./src/styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#alku" aria-label="Otalammen Autohuolto – etusivu">
+          <span class="brand-logo"><img src="./src/assets/otalampi-wordmark.svg" width="302" height="302" alt="Otalammen Autohuolto"></span>
+        </a>
+        <nav class="main-nav" id="main-nav" aria-label="Päänavigaatio">
+          <a href="#palvelut">Palvelut</a>
+          <a href="#hinta-arvio">Hinta-arvio</a>
+          <a href="#yritys">Arvostelut</a>
+          <a href="#ukk">UKK</a>
+          <a href="#yhteys">Yhteystiedot</a>
+        </nav>
+        <a class="header-phone" href="#hinta-arvio">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6M9 12h1m4 0h1m-6 4h1m4 0h1"/></svg>
+          Hinta-arvio
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Avaa valikko" aria-expanded="false" aria-controls="main-nav"><span class="menu-icon" aria-hidden="true">☰</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="alku">
+        <!-- AI-kuvitus sivupohjasta, ei yrityksen oikea toimitila. TODO: yrittäjän oma kuva, 16:9. -->
+        <img class="hero-media" src="./src/assets/hero-workshop-blue-v1.png" width="1536" height="1024" fetchpriority="high" alt="Kuvituskuva: tumma auto yleisessä korjaamoympäristössä">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="container hero-content">
+          <div class="hero-copy-block">
+            <span class="hero-kicker">OTALAMMEN AUTOHUOLTO <i></i> OTALAMPI</span>
+            <h1 class="hero-title"><span><b class="line">Huolto mielessä?</b></span><span><b class="line">Kysy meiltä.</b></span></h1>
+            <p class="hero-copy">Huollot, korjaukset ja yleisimmät autohuollon palvelut Otalammella. Tarkista yleisimpien töiden hinta-arvio tai jätä autosi tiedot korjaamolle.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#hinta-arvio">Laske hinta-arvio <span aria-hidden="true">→</span></a>
+              <a class="button button-secondary" href="#palvelut">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+                Katso palvelut
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section" aria-label="Otalammen Autohuolto lyhyesti">
+        <!-- Google-tiedot käyttäjän toimittamasta aineistosta, ei keksittyjä yritysmittareita. -->
+        <div class="container stats-grid stats-countup">
+          <article class="stat-item"><strong data-count="4.9" data-decimals="1" data-suffix=" / 5" aria-label="Google-arvosana 4,9 viidestä">4,9 / 5</strong><span class="stat-label">Google-arvosana</span></article>
+          <article class="stat-item"><strong data-count="19" aria-label="19 Google-arvostelua">19</strong><span class="stat-label">Google-arvostelua</span></article>
+          <article class="stat-item"><strong>n. 1 min</strong><span class="stat-label">Hinta-arvio</span></article>
+        </div>
+      </section>
+
+      <section class="section services-section" id="palvelut">
+        <div class="container">
+          <div class="section-heading"><h2>Huoltoa ja korjausta.</h2><p>Tutustu yleisimpiin huoltoihin ja tarkista hinta-arvio laskurissa.</p></div>
+          <div class="workshop-services service-catalog">
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l-3 3-3-3z"/></svg>
+              <h3>Huollot ja määräaikaishuollot</h3>
+              <p>Öljyn ja öljynsuodattimen vaihto n. 200 €. Määräaikaishuollot hinnoitellaan autokohtaisesti.</p>
+              <details class="service-details" open><summary><span class="details-closed">Näytä hinnat</span><span class="details-open">Piilota hinnat</span><span class="service-details-chevron" aria-hidden="true">+</span></summary><ul><li>Öljy + suodatin n. 200 €</li><li>Määräaikaishuolto: Pyydä hinta</li></ul></details>
+            </article>
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 3v3m0 12v3M3 12h3m12 0h3"/></svg>
+              <h3>Renkaanvaihto</h3>
+              <p>Renkaiden kausivaihdot henkilöautoille sekä pakettiautoille ja maastureille.</p>
+              <details class="service-details" open><summary><span class="details-closed">Näytä hinnat</span><span class="details-open">Piilota hinnat</span><span class="service-details-chevron" aria-hidden="true">+</span></summary><ul><li>Henkilöauto 30 €</li><li>Pakettiauto / maasturi 40 €</li></ul></details>
+            </article>
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4 7l16 10M4 17 20 7M9 5l3 3 3-3M9 19l3-3 3 3"/></svg>
+              <h3>Ilmastointihuolto</h3>
+              <p>Auton ilmastointijärjestelmän huolto.</p>
+              <a class="service-link" href="#hinta-arvio">80 € <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v17H5zM9 3h6v3H9zM8 13l3 3 5-6"/></svg>
+              <h3>Katsastustarkastus</h3>
+              <p>Auton tarkistus ennen katsastusta.</p>
+              <a class="service-link" href="#hinta-arvio">50 € <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 6h4v12H4"/></svg>
+              <h3>Jarrutyöt</h3>
+              <p>Jarrujen tarkistus ja korjaus. Lopullinen hinta riippuu työmäärästä ja autoon tarvittavista osista.</p>
+              <a class="service-link" href="#hinta-arvio">Pyydä hinta <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="workshop-service">
+              <svg class="workshop-service-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM8 8V5h8v3M4 12h16M10 12v3h4v-3"/></svg>
+              <h3>Muu huolto tai korjaus</h3>
+              <p>Muu vika, huoltotarve tai korjaus voidaan arvioida auton tietojen perusteella.</p>
+              <a class="service-link" href="#hinta-arvio">Pyydä hinta <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+          <p class="service-confirmation"><strong>Etkö löytänyt tarvitsemaasi?</strong><br>Kerro auton tiedot ja kuvaile huolto- tai korjaustarve laskurissa. Korjaamo tarkistaa pyynnön erikseen.</p>
+          <a class="service-link" href="#hinta-arvio">Pyydä hinta <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="section process-section" id="prosessi">
+        <div class="container service-intake">
+          <h2>Näin saat autosi<br>huoltoon.</h2>
+          <div><p>Valitse yleisimmistä palveluista tai täytä hinta-arvio. Jos työlle voidaan antaa suuntaa-antava hinta heti, näet sen laskurissa. Muut työt korjaamo tarkistaa auton tietojen perusteella.</p><a class="service-link" href="#hinta-arvio">Laske hinta-arvio <span aria-hidden="true">→</span></a></div>
+        </div>
+      </section>
+
+      <!-- Google-arvosana ja 19 arviota käyttäjän toimittamia. Nimiä tai arvioiden päivämääriä ei arvata. -->
+      <section class="section reviews-section" id="yritys">
+        <div class="container">
+          <div class="section-heading"><h2>Asiakkaiden kokemuksia.</h2><p>Otalammen Autohuolto on saanut Google-arvosteluissa arvosanan 4,9 / 5.</p></div>
+          <div class="reviews-widget">
+            <aside class="review-summary" aria-label="Google-arvostelujen yhteenveto">
+              <span class="google-wordmark" aria-label="Google"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span>
+              <strong class="google-rating">4,9 <span>/ 5</span></strong>
+              <p>19 Google-arvostelua</p>
+              <a class="service-link" href="https://www.google.com/maps/search/?api=1&amp;query=Otalammen+Autohuolto" target="_blank" rel="noopener noreferrer">Lue kaikki arvostelut <span aria-hidden="true">↗</span></a>
+              <small>Google-tiedot toimitetusta aineistosta</small>
+            </aside>
+            <div class="review-carousel">
+              <button class="review-nav review-prev" type="button" aria-label="Edellinen arvostelu"><span aria-hidden="true">←</span></button>
+              <div class="review-viewport"><div class="review-track">
+                <article class="review-card"><span class="review-stars" role="img" aria-label="5 tähteä viidestä">★★★★★</span><h3>Google-arvostelu</h3><p>“Paras autohuolto alueella. Nopea, reilu ja osaava palvelu. Suosittelen 5/5”</p><small class="review-excerpt">Käyttäjän toimittama Google-palaute</small></article>
+                <article class="review-card"><span class="review-stars">Google-palaute</span><h3>Google-arvostelu</h3><p>“Nopea ja hyvä palvelu. Ammattimies asialla.”</p><small class="review-excerpt">Käyttäjän toimittama Google-palaute</small></article>
+                <article class="review-card"><span class="review-stars">Google-palaute</span><h3>Google-arvostelu</h3><p>“Nopea ja hyvä palvelu!”</p><small class="review-excerpt">Käyttäjän toimittama Google-palaute</small></article>
+                <article class="review-card"><span class="review-stars">Google-palaute</span><h3>Google-arvostelu</h3><p>“Hyvä asiakaspalvelu ja autokin tuli nopeasti kuntoon.”</p><small class="review-excerpt">Käyttäjän toimittama Google-palaute</small></article>
+                <article class="review-card"><span class="review-stars">Google-palaute</span><h3>Google-arvostelu</h3><p>“Loistavaa ja tehokasta palvelua sekä auto tuli kuntoon”</p><small class="review-excerpt">Käyttäjän toimittama Google-palaute</small></article>
+              </div></div>
+              <button class="review-nav review-next" type="button" aria-label="Seuraava arvostelu"><span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" aria-labelledby="cta-title">
+        <div class="container cta-inner">
+          <div><h2 id="cta-title">Huolto mielessä?</h2></div>
+          <a class="button button-primary" href="#hinta-arvio">Laske hinta-arvio <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="section faq-section" id="ukk">
+        <div class="container faq-layout">
+          <div class="section-heading"><h2>Usein kysyttyä.</h2><p>Vastaukset yleisimpiin kysymyksiin ennen yhteydenottoa ja ajoneuvon tuomista.</p></div>
+          <div class="faq-list">
+            <div class="faq-item is-open"><button type="button" aria-expanded="true" aria-controls="faq-1"><span>Onko laskurin antama hinta lopullinen?</span><span class="faq-chevron" aria-hidden="true">+</span></button><div class="faq-answer" id="faq-1"><div><p>Laskurin hinnat ovat suuntaa-antavia. Korjaamo tarkistaa auton ja tarvittavan työn tiedot ja vahvistaa lopullisen hinnan ennen työn aloittamista.</p></div></div></div>
+            <div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-2"><span>Entä jos en tiedä, mikä autossa on vikana?</span><span class="faq-chevron" aria-hidden="true">+</span></button><div class="faq-answer" id="faq-2"><div><p>Valitse laskurista muu huolto tai korjaus ja kuvaile oire mahdollisimman tarkasti. Korjaamo käy tiedot läpi ja ottaa tarvittaessa yhteyttä.</p></div></div></div>
+            <div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-3"><span>Voinko valita useamman huollon?</span><span class="faq-chevron" aria-hidden="true">+</span></button><div class="faq-answer" id="faq-3"><div><p>Kyllä. Voit valita laskurissa useita töitä samaan hintapyyntöön.</p></div></div></div>
+            <div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-4"><span>Miksi määräaikaishuollolle ei ole yhtä hintaa?</span><span class="faq-chevron" aria-hidden="true">+</span></button><div class="faq-answer" id="faq-4"><div><p>Määräaikaishuollon sisältö ja tarvittavat osat riippuvat autosta, huolto-ohjelmasta ja ajokilometreistä. Siksi korjaamo tarkistaa hinnan autokohtaisesti.</p></div></div></div>
+            <div class="faq-item"><button type="button" aria-expanded="false" aria-controls="faq-5"><span>Miksi jarrutöille ei näytetä kiinteää kokonaishintaa?</span><span class="faq-chevron" aria-hidden="true">+</span></button><div class="faq-answer" id="faq-5"><div><p>Jarruosien hinnat ja tarvittavan työn määrä vaihtelevat automallin mukaan. Korjaamo tarkistaa auton tiedot ennen lopullisen hinnan vahvistamista.</p></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="hinta-arvio">
+        <div class="container">
+          <div class="section-heading contact-heading"><h2>Mitä huolto<br>maksaa?</h2><p>Valitse autosi ja tarvitsemasi työ. Saat heti hinta-arvion niistä palveluista, jotka voidaan hinnoitella etukäteen. Muut pyynnöt korjaamo tarkistaa erikseen.</p></div>
+          <div class="contact-grid">
+            <div class="form-panel otalampi-calculator">
+              <p class="form-notice"><strong>Paikallinen esikatselu.</strong> Huoltopyyntöjen vastaanottopalvelua ei ole vielä liitetty. Käytä testitietoja. Lähetys ei onnistu ilman vastaanottokuittausta.</p>
+              <div id="estimate-root"><p>Laskuri latautuu…</p></div>
+              <noscript><p>Laskurin käyttö vaatii JavaScriptin.</p></noscript>
+            </div>
+            <aside class="contact-details" id="yhteys" aria-label="Korjaamon yhteystiedot">
+              <div><h3>Mieluummin suoraan yhteyttä?</h3><p>Lähetä sähköpostia huolto- ja korjausasioissa.</p></div>
+              <div class="contact-details-links"><a href="mailto:otalammenauto@gmail.com">otalammenauto@gmail.com</a></div>
+              <div><p>Otalampi, Vihti</p></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div><a class="brand" href="#alku"><span class="brand-logo"><img src="./src/assets/otalampi-wordmark.svg" width="302" height="302" alt="Otalammen Autohuolto"></span></a><p>Autokorjaamo ja autohuolto Otalammella.</p></div>
+        <div><small>NAVIGOI</small><a href="#palvelut">Palvelut</a><a href="#hinta-arvio">Hinta-arvio</a><a href="#yritys">Arvostelut</a><a href="#ukk">UKK</a></div>
+        <div><small>OTA YHTEYTTÄ</small><a href="mailto:otalammenauto@gmail.com">otalammenauto@gmail.com</a><span>Otalampi, Vihti</span></div>
+        <a class="footer-cta" href="#alku"><span>Takaisin alkuun</span><b aria-hidden="true">↑</b></a>
+      </div>
+      <div class="container footer-bottom"><span>© 2026 Otalammen Autohuolto</span><span>Paikallinen esikatselu · vastaanottopalvelu ei ole käytössä</span></div>
+    </footer>
+  </div>
+  <script src="./vendor/gsap.min.js" defer></script>
+  <script src="./vendor/ScrollTrigger.min.js" defer></script>
+  <script type="module" src="./script.js"></script>
+  <script type="module" src="./src/calculator/main.tsx"></script>
+</body>
+</html>
