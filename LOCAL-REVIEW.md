@@ -43,3 +43,19 @@ http://127.0.0.1:4176/
 Porttia 4175 käyttää vanhan lähdeprojektin olemassa oleva esikatselu; sitä ei pysäytetty tai muutettu.
 
 Vahvistustarpeet: YRITTAJALTA-VAHVISTETTAVAT.md. Vastaanottosopimus: INTEGRATION.md.
+# Omistajan vahvistamien sisältöjen viimeistely – 19.10.2026
+
+Työ tehtiin paikallisessa `outputs/otalammen-autohuolto-kokosivusto`-projektissa, branch `main`. Remote luettiin ja todettiin oikeaksi; sitä ei muutettu. Ei commitia, pushia, deploymentia eikä GitHub-/Pages-muutoksia. Vanhaa standalone-laskuriprojektia ei avattu tai muutettu.
+
+- Kuusi nykyistä palvelukorttia: huollot ja korjaukset, rengasmyynti ja rengastyöt, ilmastointilaitehuollot ja -korjaukset, katsastuspalvelut, vikakoodit ja vian selvitykset, nelipyöräsuuntaukset. Ajovaloumpioiden pinnoitukset sekä hitsaus- ja korityöt nykyisessä lisäpalvelutekstissä.
+- Hero-otsikko ja CTA:t ennallaan; tukiteksti päivitetty. Trust strip: 4,9 / 5, 19+, kaikki merkit. Arvosteluosion 19 arviota ja palautetekstit säilytettiin.
+- Laskuriin vain manuaalisten töiden esimerkkitekstejä. Jarrutyön 95 €/h selitetään työveloitukseksi, osat ja kokonaishinta erikseen. Ei uusia automaattihintoja, kenttiä tai lähetys-/validointimuutoksia.
+- UKK:ssa kaksi kysymystä korvattu kaikkien merkkien huolloilla ja rengasmyynnillä. Viisi kysymystä edelleen.
+- CSS, tokens.css, script.js, kuvat, fontit, package/lock, Vite-config ja lähetysmoduuli muuttumattomia. Pidemmät tekstit rivittyvät olemassa olevan automaattisen korttikorkeuden mukaan; ei uutta layoutia.
+- `npm run build`, `npm run check`, `npm test`: läpi. Kahdeksan testiä; hintatesti kattaa 96 palvelu-/ajoneuvoyhdistelmää. Buildin ennestään olevat kaksi klassisten GSAP-scriptien ilmoitusta säilyvät; tiedostot tarjoillaan public/vendor-kansiosta.
+- Selain: desktop 1440 px, tablet 1024 px, mobiili noin 390 px. Ei sivuttaisylivuotoa tai korttien sisällön ylityksiä. Desktop-vertailussa sama hero-korkeus, otsikkofontti, korttileveydet/paddingit sekä arvostelu-, UKK- ja lomakeosioiden korkeudet. Palvelutekstien pituus vaikuttaa luonnollisesti korttien automaattisiin korkeuksiin.
+- Testattu hero-/palvelu-CTA:t, ankkurikohteet, mobiilivalikko, UKK:n avaus, arvostelukarussellin nuoli, sähköpostilinkin osoite ja footer. Laskurin kaikki viisi vaihetta käytiin läpi desktopilla ja mobiilissa testitiedoin. Henkilöauton neljä hinnoiteltua työtä yhteensä n. 360 €; pakettiauton renkaanvaihto 40 €. Uudet manuaaliset työt välittyvät yhteenvetoon ilman lisähintaa. Tyhjän ajoneuvovaiheen sekä pakollisen työnkuvauksen validointi tarkistettu selaimessa.
+- Paikallinen lähetyskokeilu näyttää virheen ja säilyttää tiedot: backend puuttuu. Ei virheellistä onnistumisviestiä tai uutta GHL-integraatiota. Onnistunut vastaanottokuittaus, virheet ja multipart-pyyntö katettu nykyisillä yksikkötesteillä; oikeaa toimitusta ei väitetä toimivaksi.
+- Tarkistettavan buildin paikallinen esikatselu: http://127.0.0.1:4177/ . Portin 4176 vanha työkansio jätettiin muuttamatta vertailua varten.
+
+NEEDED_FROM_CLIENT: katso YRITTAJALTA-VAHVISTETTAVAT.md. Puhelinta, tarkkaa osoitetta, aukioloaikoja tai yritystunnusta ei keksitty.

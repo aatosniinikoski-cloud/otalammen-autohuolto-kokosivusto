@@ -11,7 +11,7 @@ export const serviceCatalog: ServiceDefinition[] = [
   { id: 'tires', name: 'Renkaanvaihto', description: 'Kausirenkaiden vaihto. Hinta määräytyy ajoneuvotyypin mukaan.', icon: 'tires', price: null, vehiclePrices: { passengerCar: { amount: 30, approximate: false }, vanOrSUV: { amount: 40, approximate: false } } },
   { id: 'inspection', name: 'Katsastustarkastus', description: 'Ajoneuvon tarkastus ennen katsastusta.', icon: 'inspection', price: { amount: 50, approximate: false } },
   { id: 'ac', name: 'Ilmastointihuolto', description: 'Auton ilmastointihuolto.', icon: 'ac', price: { amount: 80, approximate: false } },
-  { id: 'other', name: 'Muu huolto tai korjaus', description: 'Esim. määräaikaishuolto, jarrutyöt, vikojen korjaus tai muu autokohtaisesti hinnoiteltava työ.', icon: 'other', price: null },
+  { id: 'other', name: 'Muu huolto tai korjaus', description: 'Esim. määräaikaishuolto, jarrutyöt, vian selvitys tai nelipyöräsuuntaus. Hinta tarkistetaan autokohtaisesti.', icon: 'other', price: null },
 ]
 export function getServicePrice(service: ServiceDefinition, vehicleType: VehicleType | ''): ServicePrice | null {
   return service.vehiclePrices ? service.vehiclePrices[vehicleType || 'unknown'] ?? null : service.price

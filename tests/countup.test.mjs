@@ -9,7 +9,7 @@ const source = readFileSync(new URL('../script.js', import.meta.url), 'utf8')
 function createCounters(reducedMotion) {
   const counters = [
     { dataset: { count: '4.9', decimals: '1', suffix: ' / 5' }, textContent: '4,9 / 5' },
-    { dataset: { count: '19' }, textContent: '19' }
+    { dataset: { count: '19', suffix: '+' }, textContent: '19+' }
   ]
   let frames = []
   const context = {
@@ -36,14 +36,14 @@ function createCounters(reducedMotion) {
 
 const animated = createCounters(false)
 animated.frame(0)
-assert.deepEqual(animated.values(), ['0,0 / 5', '0'])
+assert.deepEqual(animated.values(), ['0,0 / 5', '0+'])
 animated.frame(550)
-assert.deepEqual(animated.values(), ['4,6 / 5', '18'])
+assert.deepEqual(animated.values(), ['4,6 / 5', '18+'])
 animated.frame(1100)
-assert.deepEqual(animated.values(), ['4,9 / 5', '19'])
+assert.deepEqual(animated.values(), ['4,9 / 5', '19+'])
 assert.equal(animated.pending(), 0)
 
 const reduced = createCounters(true)
-assert.deepEqual(reduced.values(), ['4,9 / 5', '19'])
+assert.deepEqual(reduced.values(), ['4,9 / 5', '19+'])
 assert.equal(reduced.pending(), 0)
 console.log('Count-up: progress, Finnish decimals, prefixes, suffixes and reduced motion passed.')

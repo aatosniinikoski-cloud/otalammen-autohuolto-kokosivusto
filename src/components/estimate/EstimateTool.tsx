@@ -8,7 +8,7 @@ import type { EstimateData, FuelType, PriceEstimate } from '../../types/estimate
 const steps = ['Auto', 'Tarvittavat työt', 'Lisätiedot', 'Yhteystiedot', 'Yhteenveto']
 const fuelTypes: FuelType[] = ['Bensiini', 'Diesel', 'Hybridi', 'Sähkö', 'En tiedä']
 const serviceIcons = { oil: Droplets, tires: CircleDot, inspection: ClipboardCheck, ac: Snowflake, other: Wrench }
-const otherExamples = ['Määräaikaishuolto', 'Jarrut', 'Muu korjaus', 'En tiedä mikä autossa on vikana']
+const otherExamples = ['Määräaikaishuolto', 'Jarrutyöt', 'Vikakoodit ja vian selvitys', 'Nelipyöräsuuntaus', 'Ajovaloumpioiden pinnoitus', 'Hitsaus- ja korityöt', 'Muu korjaus', 'En tiedä mikä autossa on vikana']
 const vehicleTypeLabel = (type: EstimateData['vehicleType']) => vehicleTypeOptions.find((option) => option.value === type)?.label ?? '—'
 const formatFileSize = (bytes: number) => bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} kt` : `${(bytes / 1024 / 1024).toFixed(1)} Mt`
 
@@ -156,7 +156,7 @@ export function EstimateTool() {
         <div className="form-actions"><button type="button" className="button secondary" onClick={() => goTo(0)}><ArrowLeft aria-hidden="true" size={17} />Takaisin</button><button type="button" className="button primary" onClick={() => validate(1) && goTo(2)}>Jatka lisätietoihin<ArrowRight aria-hidden="true" size={18} /></button></div>
       </>}
       {step === 2 && <>
-        <div className="step-heading"><span>Vain olennaiset tiedot</span><h2>Lisätiedot</h2><p>{otherSelected ? 'Kuvaile muun huollon tai korjauksen tarve, jotta korjaamo voi arvioida työn.' : 'Voit halutessasi jättää lisätietoja tai lisätä kuvan. Muuten voit jatkaa suoraan yhteystietoihin.'}</p></div>
+        <div className="step-heading"><span>Vain olennaiset tiedot</span><h2>Lisätiedot</h2><p>{otherSelected ? 'Kuvaile muun huollon tai korjauksen tarve. Määräaikaishuollot ja jarrutyöt hinnoitellaan autokohtaisesti. Jarrutyön työveloitus on 95 €/h, osat erikseen. Korjaamo vahvistaa kokonaishinnan.' : 'Voit halutessasi jättää lisätietoja tai lisätä kuvan. Muuten voit jatkaa suoraan yhteystietoihin.'}</p></div>
         <div className="field-grid">
           {otherSelected && <div className="field full-field"><span className="label-like">Esimerkkejä työn kuvaukseen</span><div className="quick-options">{otherExamples.map((example) => <button type="button" className="button secondary" key={example} onClick={() => { update({ description: data.description.trim() ? `${data.description}\n${example}` : example }); document.getElementById('description')?.focus() }}>{example}</button>)}</div></div>}
           <div className={`field full-field${otherSelected ? ' emphasized-field' : ''}`}><FieldLabel htmlFor="description" required={otherSelected}>{otherSelected ? 'Kuvaile mitä autolle pitäisi tehdä tai mikä autossa on vikana.' : 'Lisätiedot korjaamolle'} {!otherSelected && <span className="optional">(valinnainen)</span>}</FieldLabel><textarea id="description" rows={otherSelected ? 4 : 3} required={otherSelected} maxLength={5000} value={data.description} onChange={(event) => update({ description: event.target.value })} aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'description-error' : undefined} /><ErrorText id="description-error">{errors.description}</ErrorText></div>

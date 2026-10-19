@@ -14,5 +14,18 @@ Ennen mahdollista julkaisemista tarvitaan:
 - Verkkotunnus ja erillinen hyväksyntä julkaisemiselle.
 
 Tunnettu sähköposti: otalammenauto@gmail.com (käyttäjän toimittama).
-Hinnat ovat yrittäjän vahvistamat tehtävänannossa: öljy ja suodatin n. 200 €, ilmastointi 80 €, katsastustarkastus 50 €, renkaanvaihto 30/40 €. Muita kiinteitä hintoja ei lisätty.
+Hinnat ovat yrittäjän vahvistamat tehtävänannossa: öljy ja suodatin n. 200 €, ilmastointihuolto 80 €, katsastustarkastus 50 €, renkaanvaihto 30/40 €. Jarrutyön työveloitus on 95 €/h, osat ja kokonaishinta autokohtaisesti. Määräaikaishuolto hinnoitellaan käsin. Muita kiinteitä hintoja ei lisätty.
 Sijaisauto-, autovuokraus-, hinaus- tai muita edellisen yrityksen palveluväitteitä ei käytetä.
+
+## Omistajan vahvistama palvelutarjonta (19.10.2026)
+
+- Kaikki merkit: huollot ja korjaukset.
+- Ilmastointilaitehuollot ja -korjaukset.
+- Katsastuspalvelut.
+- Vikakoodit ja vian selvitykset.
+- Rengasmyynti ja rengastyöt.
+- Nelipyöräsuuntaukset.
+- Ajovaloumpioiden pinnoitukset.
+- Hitsaus- ja korityöt.
+
+Kaikki kahdeksan palveluryhmää on esitetty etusivulla. Lisätöille ei ole lisätty automaattisia hintoja.
