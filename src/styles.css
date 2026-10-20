@@ -835,3 +835,20 @@ h1, h2, h3 { min-width: 0; overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) {
   .button:hover, .button:active { transform: none; }
 }
+
+/* Existing header CTA: gold call link, abbreviated where space is limited. */
+.header-phone.button-primary { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; min-height: 2.85rem; padding-inline: var(--space-4); border: var(--rule-hair) solid var(--color-accent); background: var(--color-accent); color: var(--color-accent-ink); font-size: var(--text-small); font-weight: 600; white-space: nowrap; }
+.header-phone-number { display: none; }
+.header-phone.button-primary:hover { background: var(--color-accent-soft); border-color: var(--color-accent-soft); color: var(--color-accent-ink); }
+@media (min-width: 72rem) {
+  .header-phone-number { display: inline; }
+}
+@media (max-width: 59.999rem) {
+  .header-inner { column-gap: var(--space-2); }
+  .header-phone.button-primary { margin-inline-start: auto; padding-inline: var(--space-2); }
+  .menu-toggle { margin-inline-start: 0; flex: 0 0 auto; }
+}
+@media (max-width: 23rem) {
+  .site-header .brand-logo { width: 10rem; height: 2.7rem; }
+  .site-header .brand-logo img { width: 11.538rem; height: 11.538rem; inset-inline-start: -0.577rem; top: -4.423rem; }
+}
