@@ -7,6 +7,7 @@ export const vehicleTypeOptions: Array<{ value: VehicleType; label: string; desc
 ]
 // Otalammen Autohuollon yrittäjän ilmoittamat hinnat. Muita töitä ei hinnoitella automaattisesti.
 export const serviceCatalog: ServiceDefinition[] = [
+  { id: 'maintenance', name: 'Määräaikaishuolto', description: 'Auton määräaikaishuolto valmistajan huolto-ohjelman mukaisesti.', icon: 'other', price: null },
   { id: 'oil', name: 'Öljyn ja öljynsuodattimen vaihto', description: 'Moottoriöljyn ja öljynsuodattimen vaihto.', icon: 'oil', price: { amount: 200, approximate: true } },
   { id: 'tires', name: 'Renkaanvaihto', description: 'Kausirenkaiden vaihto. Hinta määräytyy ajoneuvotyypin mukaan.', icon: 'tires', price: null, vehiclePrices: { passengerCar: { amount: 30, approximate: false }, vanOrSUV: { amount: 40, approximate: false } } },
   { id: 'inspection', name: 'Katsastustarkastus', description: 'Ajoneuvon tarkastus ennen katsastusta.', icon: 'inspection', price: { amount: 50, approximate: false } },

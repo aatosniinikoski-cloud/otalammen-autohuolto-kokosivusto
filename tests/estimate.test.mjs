@@ -21,12 +21,12 @@ test('yrittäjän esimerkit ja manuaaliset työt', () => {
   assert.equal(heading(['tires'], 'unknown'), 'Hinta tarkistetaan autokohtaisesti')
   assert.equal(heading(['tires', 'ac'], 'unknown'), 'Heti arvioitava osuus: 80 €')
 })
-test('kaikki 96 palveluyhdistelmää kolmelle ajoneuvotyypille', () => {
-  const ids = ['oil', 'tires', 'inspection', 'ac', 'other']
+test('kaikki 192 palveluyhdistelmää kolmelle ajoneuvotyypille', () => {
+  const ids = ['maintenance', 'oil', 'tires', 'inspection', 'ac', 'other']
   for (const vehicleType of ['passengerCar', 'vanOrSUV', 'unknown']) {
-    for (let mask = 0; mask < 32; mask++) {
+    for (let mask = 0; mask < 64; mask++) {
       const selectedServices = ids.filter((_, i) => mask & (1 << i))
-      const amounts = { oil: 200, tires: vehicleType === 'passengerCar' ? 30 : vehicleType === 'vanOrSUV' ? 40 : null, inspection: 50, ac: 80, other: null }
+      const amounts = { maintenance: null, oil: 200, tires: vehicleType === 'passengerCar' ? 30 : vehicleType === 'vanOrSUV' ? 40 : null, inspection: 50, ac: 80, other: null }
       const priced = selectedServices.map((id) => amounts[id]).filter((value) => value !== null)
       const price = catalog.calculatePrice({ selectedServices, vehicleType })
       assert.equal(price.amount, priced.length ? priced.reduce((sum, value) => sum + value, 0) : null)
@@ -34,6 +34,21 @@ test('kaikki 96 palveluyhdistelmää kolmelle ajoneuvotyypille', () => {
       assert.equal(price.requiresManualQuote, selectedServices.some((id) => amounts[id] === null))
     }
   }
+})
+
+test('määräaikaishuolto on itsenäinen manuaalinen palvelu ja välittyy pyyntöön', () => {
+  assert.equal(catalog.serviceCatalog.filter(s => s.id === 'maintenance').length, 1)
+  const data = { ...valid, selectedServices: ['maintenance'] }
+  for (let step = 0; step < 4; step++) assert.deepEqual(request.validateStep(data, step), {})
+  const price = catalog.calculatePrice(data)
+  assert.equal(price.amount, null)
+  assert.equal(price.requiresManualQuote, true)
+  assert.deepEqual(price.manualServices, ['Määräaikaishuolto'])
+  const payload = request.buildEstimateRequest({ ...data, selectedServices: ['maintenance', 'oil'] })
+  assert.equal(payload.estimate.amount, 200)
+  assert.equal(payload.services.find(s => s.id === 'maintenance').name, 'Määräaikaishuolto')
+  assert.equal(payload.services.find(s => s.id === 'maintenance').price, null)
+  assert.equal(payload.estimate.requiresManualQuote, true)
 })
 test('validointi: vapaaehtoiset lisätiedot, muu työ, puhelin ja sähköposti', () => {
   for (let step = 0; step < 4; step++) assert.deepEqual(request.validateStep(valid, step), {})
