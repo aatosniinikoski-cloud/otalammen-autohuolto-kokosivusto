@@ -15,5 +15,12 @@ assert.ok(!html.includes('/src/calculator/main.tsx'), 'Pages must never serve ra
 assert.match(html, /type="module"[^>]+src="\/otalammen-autohuolto-kokosivusto\/assets\/[^" ]+\.js"/)
 assert.ok(html.includes('href="tel:0440950100"'))
 assert.ok(html.includes('id="estimate-root"'))
-assert.ok(html.includes('vastaanottopalvelua ei ole vielä liitetty'))
+assert.ok(html.includes('Julkinen lähetys on suljettu.'))
+assert.ok(!html.includes('vastaanottopalvelua ei ole vielä liitetty'))
+const bundlePath = html.match(/type="module"[^>]+src="([^"]+\.js)"/)[1]
+const bundle = readFileSync(resolve('dist', bundlePath.slice(base.length)), 'utf8')
+const endpoint = 'https://otalammen-estimate-api.aatosmarketing.workers.dev/api/estimate-request'
+if (process.env.VITE_ESTIMATE_API_URL) assert.equal(process.env.VITE_ESTIMATE_API_URL, endpoint)
+assert.ok(bundle.includes(endpoint), 'Expected Worker API endpoint missing from calculator bundle')
+assert.doesNotMatch(html + bundle, /GHL_WEBHOOK_URL|RATE_LIMIT_SALT|\/webhook-trigger\//i)
 console.log(`Production build checked: ${localURLs.length} local asset references, compiled calculator and phone CTA.`)

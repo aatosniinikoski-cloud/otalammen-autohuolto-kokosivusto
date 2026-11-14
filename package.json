@@ -9,18 +9,23 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4176 --strictPort",
     "check": "node --check script.js && tsc --noEmit",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "backend:check": "tsc --noEmit -p backend/tsconfig.json",
+    "backend:dev": "wrangler dev --config backend/wrangler.toml --local --port 8787",
+    "backend:init": "wrangler d1 execute otalammen-estimates --config backend/wrangler.toml --local --file backend/schema.sql"
   },
   "dependencies": {
+    "jose": "^6.2.17",
+    "lucide-react": "0.468.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "lucide-react": "0.468.0"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "4.3.4",
     "typescript": "~5.6.2",
-    "vite": "6.0.5"
+    "vite": "6.0.5",
+    "wrangler": "^4.159.0"
   }
 }

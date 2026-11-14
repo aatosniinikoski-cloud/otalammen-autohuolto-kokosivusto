@@ -32,7 +32,7 @@ function PricePanel({ price, summary = false }: { price: PriceEstimate; summary?
     <p>Korjaamo vahvistaa lopullisen hinnan ennen työn aloittamista.</p>
   </aside>
 }
-function Summary({ data, price, onEdit, onSubmit, loading, submissionError }: { data: EstimateData; price: PriceEstimate; onEdit: () => void; onSubmit: () => void; loading: boolean; submissionError: string }) {
+function Summary({ data, price, onEdit, onSubmit, loading, submissionError, submissionEnabled }: { data: EstimateData; price: PriceEstimate; onEdit: () => void; onSubmit: () => void; loading: boolean; submissionError: string; submissionEnabled: boolean }) {
   const chosen = serviceCatalog.filter((service) => data.selectedServices.includes(service.id))
   return <div className="summary-view">
     <div className="step-heading"><span>Tarkista ennen lähettämistä</span><h2>Yhteenveto</h2><p>Tarkista auton tiedot, valitut palvelut ja yhteystietosi.</p></div>
@@ -56,11 +56,11 @@ function Summary({ data, price, onEdit, onSubmit, loading, submissionError }: { 
       <div><dt>Toivottu yhteydenottotapa</dt><dd>{data.contactMethod}</dd></div><div><dt>Toivottu ajankohta</dt><dd>{data.preferredTime || '—'}</dd></div>
     </dl></section>
     <ErrorText id="submission-error">{submissionError}</ErrorText>
-    <div className="form-actions"><button type="button" className="button secondary" onClick={onEdit} disabled={loading}><ArrowLeft aria-hidden="true" size={17} />Muokkaa tietoja</button><button type="button" className="button primary" onClick={onSubmit} disabled={loading}>{loading ? <><LoaderCircle className="spin" aria-hidden="true" size={18} />Lähetetään…</> : <>Lähetä huoltopyyntö<ArrowRight aria-hidden="true" size={18} /></>}</button></div>
+    <div className="form-actions"><button type="button" className="button secondary" onClick={onEdit} disabled={loading}><ArrowLeft aria-hidden="true" size={17} />Muokkaa tietoja</button><button type="button" className="button primary" onClick={onSubmit} disabled={loading || !submissionEnabled}>{loading ? <><LoaderCircle className="spin" aria-hidden="true" size={18} />Lähetetään…</> : <>{submissionEnabled ? 'Lähetä huoltopyyntö' : 'Lähetys on suljettu'}<ArrowRight aria-hidden="true" size={18} /></>}</button></div>
   </div>
 }
 
-export function EstimateTool() {
+export function EstimateTool({ submissionEnabled = false }: { submissionEnabled?: boolean }) {
   const [data, setData] = useState<EstimateData>({ ...initialEstimateData })
   const [step, setStep] = useState(0)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -69,6 +69,7 @@ export function EstimateTool() {
   const [submissionError, setSubmissionError] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const sendingRef = useRef(false)
+  const honeypotRef = useRef<HTMLInputElement>(null)
   const pendingRequest = useRef<EstimateRequest | null>(null)
   const price = useMemo(() => calculatePrice(data), [data])
   const otherSelected = data.selectedServices.includes('other')
@@ -103,7 +104,7 @@ export function EstimateTool() {
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
   const submit = async () => {
-    if (sendingRef.current) return
+    if (!submissionEnabled || sendingRef.current) return
     for (let target = 0; target < 4; target++) {
       const next = validateStep(data, target)
       if (Object.keys(next).length) { goTo(target); setErrors(next); requestAnimationFrame(() => document.getElementById(Object.keys(next)[0])?.focus()); return }
@@ -111,7 +112,7 @@ export function EstimateTool() {
     sendingRef.current = true
     setLoading(true); setSubmissionError('')
     try {
-      pendingRequest.current ??= buildEstimateRequest(data)
+      pendingRequest.current ??= buildEstimateRequest(data, honeypotRef.current?.value || '')
       const result = await submitEstimateRequest(pendingRequest.current, data.files)
       setReceipt(result.requestId); focusCard()
     } catch (error) {
@@ -126,6 +127,7 @@ export function EstimateTool() {
     <div className="success-actions"><button className="button secondary" type="button" onClick={reset}><RotateCcw aria-hidden="true" size={17} />Aloita uusi pyyntö</button></div>
   </article>
   return <article className="estimate-card" tabIndex={-1}>
+    <div hidden aria-hidden="true"><input ref={honeypotRef} name="website" autoComplete="off" tabIndex={-1} aria-label="Jätä tyhjäksi" /></div>
     <div className="tool-topline"><div><span className="live-dot" aria-hidden="true" />Huollon hinta-arvio</div><span className="optional">5 selkeää vaihetta</span></div>
     <StepProgress current={step} />
     <div className="step-panel" key={step}>
@@ -175,7 +177,7 @@ export function EstimateTool() {
           <div className="field full-field"><label className={`consent-row${errors.consent ? ' has-error' : ''}`} htmlFor="consent"><input id="consent" type="checkbox" required checked={data.consent} onChange={(event) => update({ consent: event.target.checked })} aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? 'consent-error' : undefined} /><span>Hyväksyn antamieni tietojen käytön huoltopyynnön käsittelyyn ja yhteydenottoon.<span className="required-mark" aria-hidden="true"> *</span></span></label><ErrorText id="consent-error">{errors.consent}</ErrorText></div>
         </div><div className="form-actions"><button type="button" className="button secondary" onClick={() => goTo(2)}><ArrowLeft aria-hidden="true" size={17} />Takaisin</button><button type="button" className="button primary" onClick={() => validate(3) && goTo(4)}>Tarkista pyyntö<ArrowRight aria-hidden="true" size={18} /></button></div>
       </>}
-      {step === 4 && <Summary data={data} price={price} onEdit={() => goTo(0)} onSubmit={submit} loading={loading} submissionError={submissionError} />}
+      {step === 4 && <Summary data={data} price={price} onEdit={() => goTo(0)} onSubmit={submit} loading={loading} submissionError={submissionError} submissionEnabled={submissionEnabled} />}
     </div>
   </article>
 }

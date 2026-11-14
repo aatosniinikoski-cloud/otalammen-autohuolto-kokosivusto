@@ -76,17 +76,36 @@ test('lähetys: multipart, kuittaus, virheet ja puuttuva backend', async () => {
   const payload = request.buildEstimateRequest(valid)
   try {
     globalThis.fetch = async (url, init) => {
-      assert.equal(url, '/api/estimate-requests')
+      assert.equal(url, '/api/estimate-request')
       assert.equal(init.headers['Idempotency-Key'], payload.requestId)
-      assert.equal(JSON.parse(init.body.get('request')).vehicle.registration, 'TEST-123')
-      return Response.json({ accepted: true, requestId: 'accepted-test' }, { status: 201 })
+      assert.equal(JSON.parse(init.body).vehicle.registration, 'TEST-123')
+      assert.equal(init.headers['Content-Type'], 'application/json')
+      return Response.json({ accepted: true, requestId: payload.requestId }, { status: 200 })
     }
-    assert.deepEqual(await request.submitEstimateRequest(payload, []), { requestId: 'accepted-test' })
+    assert.deepEqual(await request.submitEstimateRequest(payload, []), { requestId: payload.requestId })
     for (const response of [new Response('<html>Vite</html>', { headers: { 'Content-Type': 'text/html' } }), Response.json({ accepted: false }), new Response('Error', { status: 500 })]) {
       globalThis.fetch = async () => response
       await assert.rejects(request.submitEstimateRequest(payload, []))
     }
     globalThis.fetch = async () => { throw new TypeError('Network failed') }
     await assert.rejects(request.submitEstimateRequest(payload, []), /Lähetys ei onnistunut/)
+    globalThis.fetch = async () => Response.json({ accepted: true, requestId: 'wrong-id' })
+    await assert.rejects(request.submitEstimateRequest(payload, []))
+    globalThis.fetch = async () => Response.json({ accepted: false, code: 'delivery_unconfirmed' },{status:409})
+    await assert.rejects(request.submitEstimateRequest(payload, []), /Älä tee uutta pyyntöä/)
+    const image = new File(['image'], 'test.png', {type:'image/png'})
+    const withImage = request.buildEstimateRequest({...valid,files:[{id:'1',file:image}]})
+    let attempts = 0
+    globalThis.fetch = async (_url, init) => {
+      attempts++
+      assert.ok(init.body instanceof FormData)
+      assert.equal(init.headers['Content-Type'], undefined)
+      assert.equal(JSON.parse(init.body.get('request')).requestId,withImage.requestId)
+      assert.equal(init.body.get('images').name,'test.png')
+      return Response.json({accepted:true,requestId:withImage.requestId})
+    }
+    await request.submitEstimateRequest(withImage,[{id:'1',file:image}])
+    await request.submitEstimateRequest(withImage,[{id:'1',file:image}])
+    assert.equal(attempts,2)
   } finally { globalThis.fetch = savedFetch; globalThis.window = savedWindow }
 })

@@ -21,6 +21,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      VITE_ESTIMATE_API_URL: https://otalammen-estimate-api.aatosmarketing.workers.dev/api/estimate-request
+      VITE_ESTIMATE_PUBLIC_ENABLED: 'false' # Demo only; opening requires a reviewed change.
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1

@@ -22,10 +22,11 @@ export function validateStep(data: EstimateData, step: number): Record<string, s
   }
   return errors
 }
-export function buildEstimateRequest(data: EstimateData) {
+export function buildEstimateRequest(data: EstimateData, website = '') {
   const otherSelected = data.selectedServices.includes('other')
   return {
     schemaVersion: 1,
+    website,
     requestId: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
     vehicle: { registration: data.registration.trim().toUpperCase(), makeModel: data.makeModel.trim(), year: data.year ? Number(data.year) : null, mileage: Number(data.mileage), fuelType: data.fuelType || null, type: data.vehicleType },
@@ -41,16 +42,22 @@ export type EstimateRequest = ReturnType<typeof buildEstimateRequest>
 
 // Use your own backend here. Forward to GHL on the server; never expose private webhook URLs or keys in VITE_*.
 export async function submitEstimateRequest(request: EstimateRequest, files: EstimateData['files']): Promise<{ requestId: string }> {
-  const body = new FormData()
-  body.append('request', JSON.stringify(request))
-  files.forEach(({ file }) => body.append('images', file, file.name))
+  let body: string | FormData = JSON.stringify(request)
+  if (files.length) {
+    body = new FormData()
+    body.append('request', JSON.stringify(request))
+    files.forEach(({ file }) => (body as FormData).append('images', file, file.name))
+  }
   const controller = new AbortController()
-  const timeout = window.setTimeout(() => controller.abort(), 20000)
+  const timeout = window.setTimeout(() => controller.abort(), files.length ? 120000 : 20000)
   try {
-    const response = await fetch(import.meta.env.VITE_ESTIMATE_API_URL || '/api/estimate-requests', { method: 'POST', body, signal: controller.signal, headers: { Accept: 'application/json', 'Idempotency-Key': request.requestId } })
-    if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) throw new Error('Lähetys ei onnistunut. Vastaanottopalvelu ei ole käytettävissä. Tietosi säilyvät tässä näkymässä; voit yrittää uudelleen.')
-    const result: unknown = await response.json()
-    if (!result || typeof result !== 'object' || !('accepted' in result) || result.accepted !== true) throw new Error('Korjaamon vastaanottopalvelu ei vahvistanut pyyntöä. Yritä uudelleen.')
+    const response = await fetch(import.meta.env.VITE_ESTIMATE_API_URL || '/api/estimate-request', { method: 'POST', body, signal: controller.signal, headers: { Accept: 'application/json', ...(typeof body === 'string' ? { 'Content-Type': 'application/json' } : {}), 'Idempotency-Key': request.requestId } })
+    if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('Lähetys ei onnistunut. Vastaanottopalvelu ei ole käytettävissä. Tietosi säilyvät tässä näkymässä; voit yrittää uudelleen.')
+    const decoded: unknown = await response.json()
+    if (decoded && typeof decoded === 'object' && 'code' in decoded && decoded.code === 'delivery_unconfirmed') throw new Error(`Pyynnön vastaanottoa ei voitu vahvistaa. Älä tee uutta pyyntöä: ota yhteyttä korjaamoon ja ilmoita tunnus ${request.requestId}.`)
+    if (!response.ok) throw new Error(response.status === 429 ? 'Liian monta pyyntöä. Odota hetki ennen uutta yritystä.' : 'Lähetys ei onnistunut. Tarkista antamasi tiedot tai yritä myöhemmin uudelleen.')
+    const result: unknown = decoded
+    if (!result || typeof result !== 'object' || !('accepted' in result) || result.accepted !== true || !('requestId' in result) || result.requestId !== request.requestId) throw new Error('Korjaamon vastaanottopalvelu ei vahvistanut pyyntöä. Yritä uudelleen.')
     return { requestId: 'requestId' in result && typeof result.requestId === 'string' ? result.requestId : request.requestId }
   } catch (error) {
     if (error instanceof Error && error.name !== 'TypeError' && error.name !== 'AbortError') throw error

@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["vite/client"] },
+  "include": ["worker.ts", "../src/data/serviceCatalog.ts", "../src/lib/estimateRequest.ts", "../src/types/estimate.ts"]
+}
